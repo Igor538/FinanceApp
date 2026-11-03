@@ -14,7 +14,7 @@
 
 ## 📱 Sobre o Projeto
 
-O **FinanceApp** é um sistema completo de gestão financeira pessoal. O aplicativo mobile consome uma API backend em PHP que interage com um banco de dados relacional MySQL. O fluxo de dados segue a arquitetura:
+O **FinanceApp** é um sistema completo de gestão financeira pessoal. O aplicativo mobile consome uma API backend em PHP que interage com um banco de dados relacional MySQL (`transactions`). O fluxo de dados segue a arquitetura:
 
 $$\text{Android App (Jetpack Compose)} \xrightarrow{\text{Retrofit / HTTP}} \text{API PHP (REST)} \xrightarrow{\text{PDO}} \text{MySQL Database}$$
 
@@ -37,7 +37,7 @@ Além disso, **a tela de login do aplicativo possui um card informativo com um b
 - 📊 **Dashboard Financeiro:** Resumo de saldo, receitas, despesas e transações recentes em tempo real.
 - 💸 **CRUD Completo:** Gerenciamento intuitivo de Transações, Contas e Categorias.
 - 🎨 **UI Moderna & Adaptativa:** Desenvolvido 100% em Jetpack Compose com Material 3 e suporte a Tema Claro/Escuro persistente.
-- ⚡ **Gerenciamento de Estado:** Utilização de `ViewModel`, `StateFlow` e corrotinas Kotlin.
+- ⚡ **Gerênciamento de Estado:** Utilização de `ViewModel`, `StateFlow` e corrotinas Kotlin.
 
 ---
 
@@ -66,13 +66,13 @@ Você pode utilizar **WAMP** ou **XAMPP**:
 
 #### Opção A: Usando WAMP Server
 1. Inicie os serviços **Apache** e **MySQL** no WAMP.
-2. No phpMyAdmin (`http://localhost/phpmyadmin/`), crie um banco de dados chamado `financeapp`.
-3. Importe o script SQL localizado em [`backend/database/financeapp.sql`](backend/database/financeapp.sql) (ele já criará a conta de teste `admin` / `123456`).
+2. No phpMyAdmin (`http://localhost/phpmyadmin/`), crie um banco de dados chamado **`transactions`**.
+3. Importe o script SQL localizado em [`backend/database/financeapp.sql`](backend/database/financeapp.sql) (ele criará as tabelas e a conta `admin` / `123456`).
 4. Copie a pasta [`backend/api`](backend/api) para `C:\wamp64\www\financeapp_api`.
 
 #### Opção B: Usando XAMPP
 1. Inicie **Apache** e **MySQL** no XAMPP Control Panel.
-2. Crie o banco `financeapp` via phpMyAdmin e importe o arquivo [`backend/database/financeapp.sql`](backend/database/financeapp.sql).
+2. Crie o banco **`transactions`** via phpMyAdmin e importe o arquivo [`backend/database/financeapp.sql`](backend/database/financeapp.sql).
 3. Copie a pasta [`backend/api`](backend/api) para `C:\xampp\htdocs\finance_api`.
 
 ---
@@ -124,7 +124,7 @@ FinanceApp/
 │   ├── api/                     # Endpoints da API PHP (api.php, config.php)
 │   └── database/                # Script SQL (financeapp.sql)
 ├── docs/                        # Documentação e assets do projeto
-├── build.gradle.kts             # Configurações globais do Gradle
+├── build.gradle.kts             # Configurações globais duais
 ├── settings.gradle.kts          # Definição de módulos
 └── README.md                    # Documentação oficial
 ```
