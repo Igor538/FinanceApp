@@ -1,15 +1,12 @@
-# FinanceApp 💳📱
-
 <div align="center">
 
+# FinanceApp 💳📱
+
 [![Kotlin](https://img.shields.io/badge/Kotlin-2.0.21-purple.svg?style=flat&logo=kotlin)](https://kotlinlang.org)
-[![Jetpack Compose](https://img.shields.io/badge/Jetpack%2520Compose-Material%25203-blue.svg?style=flat&logo=android)](https://developer.android.com/jetpack/compose)
+[![Jetpack Compose](https://img.shields.io/badge/Jetpack%20Compose-Material%203-blue.svg?style=flat&logo=android)](https://developer.android.com/jetpack/compose)
 [![Android SDK](https://img.shields.io/badge/Android%20SDK-API%2524%2B-green.svg?style=flat&logo=android)](https://developer.android.com)
-[![License](https://img.shields.io/badge/License-Academic-orange.svg)]()
 
-Aplicativo Android de controle financeiro desenvolvido com arquitetura moderna (**MVVM**, **Jetpack Compose**, **StateFlow**) conectado a uma API REST em **PHP/MySQL**.
-
-[Repositório no GitHub](https://github.com/Igor538/FinanceApp)
+> Aplicativo Android de controle financeiro desenvolvido com arquitetura moderna (**MVVM**, **Jetpack Compose**, **StateFlow**) conectado a uma API REST em **PHP/MySQL**.
 
 </div>
 
@@ -58,7 +55,7 @@ Você pode utilizar **WAMP** ou **XAMPP**:
 
 #### Opção A: Usando WAMP Server
 1. Inicie os serviços **Apache** e **MySQL** no WAMP.
-2. No phpMyAdmin (`http://localhost/phpmyadmin/`), crie um banco de dados chamado `financeapp`.
+2. No phpMyAdmin (`http://localhost/phpmyadmin/`), crie um banco de dados chamado `financeapp` (ou `transactions`).
 3. Importe o script SQL localizado em [`backend/database/financeapp.sql`](backend/database/financeapp.sql).
 4. Copie a pasta [`backend/api`](backend/api) para `C:\wamp64\www\financeapp_api`.
 
@@ -126,6 +123,3 @@ FinanceApp/
 ## 👤 Autor
 
 Desenvolvido por **Igor** ([Igor538](https://github.com/Igor538)).
-
----
-*Projeto desenvolvido para fins educacionais e acadêmicos.*
