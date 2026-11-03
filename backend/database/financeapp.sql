@@ -45,12 +45,12 @@ CREATE TABLE IF NOT EXISTS transactions (
 ) ENGINE=InnoDB;
 
 -- ==========================================
--- DADOS DE TESTE (CONTA PRÉ-CADASTRADA)
--- Usuário: teste
+-- DADOS DE TESTE (CONTA DE DEMONSTRAÇÃO)
+-- Usuário: admin
 -- Senha:   123456
 -- ==========================================
 INSERT INTO users (id, name, username, password_hash) VALUES
-(1, 'Usuário Teste', 'teste', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi')
+(1, 'Administrador', 'admin', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi')
 ON DUPLICATE KEY UPDATE id=id;
 
 INSERT INTO accounts (id, user_id, name, balance) VALUES

@@ -281,6 +281,31 @@ private fun LoginScreen(vm: FinanceViewModel, nav: NavHostController) {
             TextButton(onClick = {
                 registering = !registering
             }) { Text(if (registering) "Já tenho conta · Entrar" else "Não tem conta? Cadastre-se") }
+
+            if (!registering) {
+                Spacer(Modifier.height(16.dp))
+                Card(
+                    colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Column(Modifier.padding(12.dp)) {
+                        Text("💡 Conta de Demonstração:", style = MaterialTheme.typography.bodyMedium, fontWeight = FontWeight.Bold)
+                        Text("Usuário: admin", style = MaterialTheme.typography.bodySmall)
+                        Text("Senha: 123456", style = MaterialTheme.typography.bodySmall)
+                        Spacer(Modifier.height(4.dp))
+                        TextButton(
+                            onClick = {
+                                username = "admin"
+                                password = "123456"
+                            },
+                            modifier = Modifier.height(32.dp)
+                        ) {
+                            Text("Preencher dados de teste", style = MaterialTheme.typography.labelSmall)
+                        }
+                    }
+                }
+            }
+
             if (message.isNotBlank())
                 Text(message, color = MaterialTheme.colorScheme.error)
         }

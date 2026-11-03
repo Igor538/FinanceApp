@@ -4,7 +4,7 @@
 
 [![Kotlin](https://img.shields.io/badge/Kotlin-2.0.21-purple.svg?style=flat&logo=kotlin)](https://kotlinlang.org)
 [![Jetpack Compose](https://img.shields.io/badge/Jetpack%2520Compose-Material%25203-blue.svg?style=flat&logo=android)](https://developer.android.com/jetpack/compose)
-[![Android SDK](https://img.shields.io/badge/Android%20SDK-API%2524%2B-green.svg?style=flat&logo=android)](https://developer.android.com)
+[![Android SDK](https://img.shields.io/badge/Android%2520SDK-API%2524%252B-green.svg?style=flat&logo=android)](https://developer.android.com)
 
 > Aplicativo Android de controle financeiro desenvolvido com arquitetura moderna (**MVVM**, **Jetpack Compose**, **StateFlow**) conectado a uma API REST em **PHP/MySQL**.
 
@@ -20,11 +20,13 @@ $$\text{Android App (Jetpack Compose)} \xrightarrow{\text{Retrofit / HTTP}} \tex
 
 ---
 
-## 🔑 Conta de Teste (Acesso Rápido)
+## 🔑 Conta de Teste / Demonstração
 
-Para facilitar a avaliação e testes do aplicativo, o script SQL já insere uma conta de demonstração pré-configurada com contas, categorias e transações de exemplo:
+Para facilitar a avaliação e testes do aplicativo, o script SQL já insere uma conta de demonstração pré-configurada com contas, categorias e transações de exemplo. 
 
-- **Usuário:** `teste`
+Além disso, **a tela de login do aplicativo possui um card informativo com um botão de preenchimento automático** ("Preencher dados de teste") para acesso instantâneo:
+
+- **Usuário:** `admin`
 - **Senha:** `123456`
 
 ---
@@ -65,7 +67,7 @@ Você pode utilizar **WAMP** ou **XAMPP**:
 #### Opção A: Usando WAMP Server
 1. Inicie os serviços **Apache** e **MySQL** no WAMP.
 2. No phpMyAdmin (`http://localhost/phpmyadmin/`), crie um banco de dados chamado `financeapp`.
-3. Importe o script SQL localizado em [`backend/database/financeapp.sql`](backend/database/financeapp.sql) (ele já criará a conta de teste acima).
+3. Importe o script SQL localizado em [`backend/database/financeapp.sql`](backend/database/financeapp.sql) (ele já criará a conta de teste `admin` / `123456`).
 4. Copie a pasta [`backend/api`](backend/api) para `C:\wamp64\www\financeapp_api`.
 
 #### Opção B: Usando XAMPP
