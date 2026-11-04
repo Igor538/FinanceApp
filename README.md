@@ -16,8 +16,6 @@
 
 O **FinanceApp** é um sistema completo de gestão financeira pessoal. O aplicativo mobile consome uma API backend em PHP que interage com um banco de dados relacional MySQL (`transactions`). O fluxo de dados segue a arquitetura:
 
-$$\text{Android App (Jetpack Compose)} \xrightarrow{\text{Retrofit / HTTP}} \text{API PHP (REST)} \xrightarrow{\text{PDO}} \text{MySQL Database}$$
-
 ---
 
 ## 🔑 Conta de Teste / Demonstração
