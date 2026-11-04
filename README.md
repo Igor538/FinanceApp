@@ -339,6 +339,9 @@ Installed on 1 device.
 | **`No connected devices!`** | Confirme que o emulador está iniciado ou que o dispositivo físico está conectado com depuração USB ativada. Execute `adb devices` para verificar. |
 | **Emulador não reconhecido pelo ADB** | Reinicie o emulador pelo Device Manager. Execute `adb devices` novamente. Se persistir, rode `adb kill-server` e depois `adb start-server`. |
 | **Erro de conexão com a API** | Confirme que o WAMP/XAMPP está com Apache e MySQL em execução. Verifique se a `BASE_URL` em `Api.kt` corresponde ao seu servidor local. Use `http://10.0.2.2/...` para emulador ou o IP local da máquina para celular físico. |
+| **Celular físico: "sem permissão" / 403** | O Apache do WAMP bloqueia IPs externos por padrão. Libere: (1) em `wamp64\bin\apache\...\conf\extra\httpd-vhosts.conf`, dentro de `<Directory ...www/>`, adicione `Require ip 192.168.0.0/16` abaixo do `Require local`; (2) reinicie o Apache (ícone do WAMP → Reiniciar Serviços, ou `Restart-Service wampapache64` como Administrador); (3) libere a porta 80 no Firewall do Windows: `netsh advfirewall firewall add rule name="WAMP Apache 80" dir=in action=allow protocol=TCP localport=80`. |
+| **Celular físico: "não foi possível conectar"** | Confirme que celular e PC estão no **mesmo Wi-Fi**, pegue o IPv4 do PC com `ipconfig` e configure o endereço no app (**⚙ Endereço do servidor** na tela de login). Teste antes no navegador do celular: `http://SEU-IP/financeapp_api/api.php?action=accounts&user_id=1` deve retornar JSON. |
+| **Erro de permissão do firewall / UAC não aparece** | Abra o PowerShell como Administrador (Win+X → Terminal (Admin)) e rode o comando `netsh` acima manualmente. |
 
 </div>
 
