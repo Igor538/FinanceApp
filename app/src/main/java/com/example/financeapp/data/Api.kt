@@ -8,8 +8,9 @@ import retrofit2.http.POST
 import retrofit2.http.Query
 
 // Android Emulator: 10.0.2.2 points to the host computer running WAMP.
-// For a physical phone, replace this with your computer's local IPv4 address.
-const val BASE_URL = "http://10.0.2.2/financeapp_api/"
+// For a physical phone, change it in the app (Ajustes > Servidor da API):
+// use your computer's local IPv4 address (ipconfig), e.g. http://192.168.0.15/financeapp_api/
+const val DEFAULT_BASE_URL = "http://10.0.2.2/financeapp_api/"
 
 data class UserDto(val id: Int, val name: String, val username: String)
 data class AuthResponse(val success: Boolean, val message: String, val user: UserDto? = null)
@@ -39,9 +40,23 @@ interface FinanceApi {
 }
 
 object ApiClient {
-    val service: FinanceApi by lazy {
-        Retrofit.Builder().baseUrl(BASE_URL)
+    @Volatile var currentUrl: String = DEFAULT_BASE_URL
+        private set
+
+    @Volatile
+    private var impl: FinanceApi = build(DEFAULT_BASE_URL)
+
+    val service: FinanceApi
+        get() = impl
+
+    fun setBaseUrl(url: String) {
+        val trimmed = url.trim().let { if (it.endsWith("/")) it else "$it/" }
+        currentUrl = trimmed
+        impl = build(trimmed)
+    }
+
+    private fun build(url: String): FinanceApi =
+        Retrofit.Builder().baseUrl(url)
             .addConverterFactory(GsonConverterFactory.create()).build()
             .create(FinanceApi::class.java)
-    }
 }

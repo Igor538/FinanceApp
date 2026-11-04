@@ -209,6 +209,12 @@ class FinanceViewModel(private val repository: FinanceRepository, private val pr
     fun toggleDark(value: Boolean) =
         viewModelScope.launch { _dark.value = value; prefs.setDarkTheme(value) }
 
+    fun setServerUrl(value: String) =
+        viewModelScope.launch {
+            prefs.setServerUrl(value)
+            ApiClient.setBaseUrl(value)
+        }
+
     fun logout() = viewModelScope.launch {
         prefs.clearUser()
         _user.value = null
@@ -1305,6 +1311,39 @@ private fun SettingsScreen(
                         Switch(dark, { vm.toggleDark(it) })
                     }
                 )
+            }
+        }
+
+        Spacer(Modifier.height(16.dp))
+
+        // Servidor da API
+        Card(shape = CardShape, colors = CardDefaults.cardColors(containerColor = cs.surface)) {
+            Column(Modifier.padding(16.dp)) {
+                Text(
+                    "Servidor da API",
+                    fontWeight = FontWeight.SemiBold,
+                    style = MaterialTheme.typography.bodyLarge
+                )
+                Text(
+                    "No celular, use o endereço do PC na rede Wi-Fi (ipconfig no PC). Ex.: http://192.168.0.15/financeapp_api/",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = cs.onSurfaceVariant
+                )
+                Spacer(Modifier.height(10.dp))
+                var url by remember { mutableStateOf(ApiClient.currentUrl) }
+                OutlinedTextField(
+                    url, { url = it },
+                    label = { Text("Endereço") },
+                    singleLine = true,
+                    shape = BtnShape,
+                    modifier = Modifier.fillMaxWidth()
+                )
+                Spacer(Modifier.height(8.dp))
+                Button(
+                    onClick = { vm.setServerUrl(url) },
+                    shape = BtnShape,
+                    modifier = Modifier.fillMaxWidth()
+                ) { Text("Salvar servidor") }
             }
         }
 
