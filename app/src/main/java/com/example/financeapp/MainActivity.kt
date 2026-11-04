@@ -311,6 +311,7 @@ private fun LoginScreen(vm: FinanceViewModel, nav: NavHostController) {
     var password by remember { mutableStateOf("") }
     var name by remember { mutableStateOf("") }
     var registering by remember { mutableStateOf(false) }
+    var showServer by remember { mutableStateOf(false) }
     val busy by vm.busy.collectAsState()
     val message by vm.message.collectAsState()
     val user by vm.user.collectAsState()
@@ -422,6 +423,38 @@ private fun LoginScreen(vm: FinanceViewModel, nav: NavHostController) {
                     else "Não tem conta? Cadastre-se"
                 )
             }
+            TextButton(onClick = { showServer = true }) {
+                Text("⚙ Servidor (celular: usar IP do PC)")
+            }
+            if (showServer) AlertDialog(
+                onDismissRequest = { showServer = false },
+                title = { Text("Endereço do servidor") },
+                text = {
+                    Column {
+                        Text(
+                            "No celular use o IP do PC na rede Wi-Fi. Ex.: http://192.168.0.15/financeapp_api/",
+                            style = MaterialTheme.typography.bodySmall,
+                            color = cs.onSurfaceVariant
+                        )
+                        Spacer(Modifier.height(8.dp))
+                        var url by remember(showServer) { mutableStateOf(ApiClient.currentUrl) }
+                        OutlinedTextField(
+                            url, { url = it },
+                            label = { Text("Endereço") },
+                            singleLine = true,
+                            shape = BtnShape,
+                            modifier = Modifier.fillMaxWidth()
+                        )
+                        TextButton(onClick = {
+                            vm.setServerUrl(url); showServer = false; vm.consumeMessage()
+                        }) { Text("Salvar") }
+                    }
+                },
+                confirmButton = {},
+                dismissButton = {
+                    TextButton(onClick = { showServer = false }) { Text("Fechar") }
+                }
+            )
 
             if (!registering) {
                 Spacer(Modifier.height(18.dp))
