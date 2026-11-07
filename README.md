@@ -282,7 +282,7 @@ Você deve ver o emulador listado como `emulator-5554` (ou similar) com o status
 
 ## 🔧 Configuração da API no App Android
 
-A constante `DEFAULT_BASE_URL` em [`app/src/main/java/com/example/financeapp/data/Api.kt`](app/src/main/java/com/example/financeapp/data/Api.kt) já aponta para a produção (`https://financeapp.alwaysdata.net/`). Também pode ser trocada no app em **Ajustes > Servidor da API**.
+A constante `DEFAULT_BASE_URL` em [`app/src/main/java/com/example/financeapp/data/Api.kt`](app/src/main/java/com/example/financeapp/data/Api.kt) já aponta para a produção (`https://financeapp.alwaysdata.net/`). Para desenvolvimento local, altere essa constante no código e recompile o app.
 
 <table>
   <tr>
@@ -365,9 +365,9 @@ Installed on 1 device.
 | **`JAVA_HOME` não configurado** | O Gradle falhará indicando que não encontrou o Java. Siga a seção **Configuração do Ambiente** acima. |
 | **`No connected devices!`** | Confirme que o emulador está iniciado ou que o dispositivo físico está conectado com depuração USB ativada. Execute `adb devices` para verificar. |
 | **Emulador não reconhecido pelo ADB** | Reinicie o emulador pelo Device Manager. Execute `adb devices` novamente. Se persistir, rode `adb kill-server` e depois `adb start-server`. |
-| **Erro de conexão com a API** | Confirme que o WAMP/XAMPP está com Apache e MySQL em execução. Verifique se a `BASE_URL` em `Api.kt` corresponde ao seu servidor local. Use `http://10.0.2.2/...` para emulador ou o IP local da máquina para celular físico. |
+| **Erro de conexão com a API** | Verifique sua internet e se o backend está no ar (`https://financeapp.alwaysdata.net/api.php?action=accounts&user_id=1`). Para dev local, confirme WAMP/XAMPP e a `DEFAULT_BASE_URL` em `Api.kt`. |
 | **Celular físico: "sem permissão" / 403** | O Apache do WAMP bloqueia IPs externos por padrão. Libere: (1) em `wamp64\bin\apache\...\conf\extra\httpd-vhosts.conf`, dentro de `<Directory ...www/>`, adicione `Require ip 192.168.0.0/16` abaixo do `Require local`; (2) reinicie o Apache (ícone do WAMP → Reiniciar Serviços, ou `Restart-Service wampapache64` como Administrador); (3) libere a porta 80 no Firewall do Windows: `netsh advfirewall firewall add rule name="WAMP Apache 80" dir=in action=allow protocol=TCP localport=80`. |
-| **Celular físico: "não foi possível conectar"** | Confirme que celular e PC estão no **mesmo Wi-Fi**, pegue o IPv4 do PC com `ipconfig` e configure o endereço no app (**⚙ Endereço do servidor** na tela de login). Teste antes no navegador do celular: `http://SEU-IP/financeapp_api/api.php?action=accounts&user_id=1` deve retornar JSON. |
+| **Celular físico: "não foi possível conectar"** | Para dev local, confirme que celular e PC estão no **mesmo Wi-Fi**, pegue o IPv4 do PC com `ipconfig` e ajuste a `DEFAULT_BASE_URL` em `Api.kt` para `http://SEU-IP/financeapp_api/` (recompile). Teste antes no navegador do celular. |
 | **Erro de permissão do firewall / UAC não aparece** | Abra o PowerShell como Administrador (Win+X → Terminal (Admin)) e rode o comando `netsh` acima manualmente. |
 
 </div>

@@ -81,7 +81,7 @@ class FinanceViewModel(private val repository: FinanceRepository, private val pr
             }
         } catch (e: Exception) {
             _message.value =
-                "Não foi possível conectar à API. Confira o WAMP e o endereço do servidor."
+                "Não foi possível conectar à API. Verifique sua internet e tente novamente."
         } finally {
             _busy.value = false
         }
@@ -209,12 +209,6 @@ class FinanceViewModel(private val repository: FinanceRepository, private val pr
     fun toggleDark(value: Boolean) =
         viewModelScope.launch { _dark.value = value; prefs.setDarkTheme(value) }
 
-    fun setServerUrl(value: String) =
-        viewModelScope.launch {
-            prefs.setServerUrl(value)
-            ApiClient.setBaseUrl(value)
-        }
-
     fun logout() = viewModelScope.launch {
         prefs.clearUser()
         _user.value = null
@@ -311,7 +305,6 @@ private fun LoginScreen(vm: FinanceViewModel, nav: NavHostController) {
     var password by remember { mutableStateOf("") }
     var name by remember { mutableStateOf("") }
     var registering by remember { mutableStateOf(false) }
-    var showServer by remember { mutableStateOf(false) }
     val busy by vm.busy.collectAsState()
     val message by vm.message.collectAsState()
     val user by vm.user.collectAsState()
@@ -423,39 +416,6 @@ private fun LoginScreen(vm: FinanceViewModel, nav: NavHostController) {
                     else "Não tem conta? Cadastre-se"
                 )
             }
-            TextButton(onClick = { showServer = true }) {
-                Text("⚙ Servidor (celular: usar IP do PC)")
-            }
-            if (showServer) AlertDialog(
-                onDismissRequest = { showServer = false },
-                title = { Text("Endereço do servidor") },
-                text = {
-                    Column {
-                        Text(
-                            "No celular use o IP do PC na rede Wi-Fi. Ex.: http://192.168.0.15/financeapp_api/",
-                            style = MaterialTheme.typography.bodySmall,
-                            color = cs.onSurfaceVariant
-                        )
-                        Spacer(Modifier.height(8.dp))
-                        var url by remember(showServer) { mutableStateOf(ApiClient.currentUrl) }
-                        OutlinedTextField(
-                            url, { url = it },
-                            label = { Text("Endereço") },
-                            singleLine = true,
-                            shape = BtnShape,
-                            modifier = Modifier.fillMaxWidth()
-                        )
-                        TextButton(onClick = {
-                            vm.setServerUrl(url); showServer = false; vm.consumeMessage()
-                        }) { Text("Salvar") }
-                    }
-                },
-                confirmButton = {},
-                dismissButton = {
-                    TextButton(onClick = { showServer = false }) { Text("Fechar") }
-                }
-            )
-
             if (!registering) {
                 Spacer(Modifier.height(18.dp))
                 Card(
@@ -1344,39 +1304,6 @@ private fun SettingsScreen(
                         Switch(dark, { vm.toggleDark(it) })
                     }
                 )
-            }
-        }
-
-        Spacer(Modifier.height(16.dp))
-
-        // Servidor da API
-        Card(shape = CardShape, colors = CardDefaults.cardColors(containerColor = cs.surface)) {
-            Column(Modifier.padding(16.dp)) {
-                Text(
-                    "Servidor da API",
-                    fontWeight = FontWeight.SemiBold,
-                    style = MaterialTheme.typography.bodyLarge
-                )
-                Text(
-                    "No celular, use o endereço do PC na rede Wi-Fi (ipconfig no PC). Ex.: http://192.168.0.15/financeapp_api/",
-                    style = MaterialTheme.typography.bodySmall,
-                    color = cs.onSurfaceVariant
-                )
-                Spacer(Modifier.height(10.dp))
-                var url by remember { mutableStateOf(ApiClient.currentUrl) }
-                OutlinedTextField(
-                    url, { url = it },
-                    label = { Text("Endereço") },
-                    singleLine = true,
-                    shape = BtnShape,
-                    modifier = Modifier.fillMaxWidth()
-                )
-                Spacer(Modifier.height(8.dp))
-                Button(
-                    onClick = { vm.setServerUrl(url) },
-                    shape = BtnShape,
-                    modifier = Modifier.fillMaxWidth()
-                ) { Text("Salvar servidor") }
             }
         }
 

@@ -7,7 +7,7 @@ import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Query
 
-// API hospedada no alwaysdata. Pode ser trocada no app (Ajustes > Servidor da API).
+// API hospedada no alwaysdata.
 const val DEFAULT_BASE_URL = "https://financeapp.alwaysdata.net/"
 
 data class UserDto(val id: Int, val name: String, val username: String)
@@ -38,20 +38,7 @@ interface FinanceApi {
 }
 
 object ApiClient {
-    @Volatile var currentUrl: String = DEFAULT_BASE_URL
-        private set
-
-    @Volatile
-    private var impl: FinanceApi = build(DEFAULT_BASE_URL)
-
-    val service: FinanceApi
-        get() = impl
-
-    fun setBaseUrl(url: String) {
-        val trimmed = url.trim().let { if (it.endsWith("/")) it else "$it/" }
-        currentUrl = trimmed
-        impl = build(trimmed)
-    }
+    val service: FinanceApi = build(DEFAULT_BASE_URL)
 
     private fun build(url: String): FinanceApi =
         Retrofit.Builder().baseUrl(url)
