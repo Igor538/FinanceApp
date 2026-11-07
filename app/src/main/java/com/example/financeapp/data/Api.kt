@@ -7,10 +7,8 @@ import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Query
 
-// Android Emulator: 10.0.2.2 points to the host computer running WAMP.
-// For a physical phone, change it in the app (Ajustes > Servidor da API):
-// use your computer's local IPv4 address (ipconfig), e.g. http://192.168.0.15/financeapp_api/
-const val DEFAULT_BASE_URL = "http://10.0.2.2/financeapp_api/"
+// API hospedada no alwaysdata. Pode ser trocada no app (Ajustes > Servidor da API).
+const val DEFAULT_BASE_URL = "https://financeapp.alwaysdata.net/"
 
 data class UserDto(val id: Int, val name: String, val username: String)
 data class AuthResponse(val success: Boolean, val message: String, val user: UserDto? = null)

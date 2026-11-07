@@ -217,6 +217,29 @@ O `java -version` deve reportar o **Java 21** e o `gradlew --version` deve usar 
 
 ## 🗄️ Configuração do Backend (API PHP + MySQL)
 
+### Produção (alwaysdata)
+
+A API de produção roda em `https://financeapp.alwaysdata.net/` (PHP + MariaDB + SSL grátis).
+
+1. Crie a conta em https://www.alwaysdata.com (plano Free).
+2. Em **Bases de données > MySQL**, crie o banco e importe `backend/database/financeapp.sql`.
+3. Envie `backend/api/api.php` e `backend/api/config.php` para `www/`.
+4. Crie `www/config.local.php` com as credenciais reais (modelo abaixo). Ele **não** vai para o git.
+5. Teste: `https://CONTA.alwaysdata.net/api.php?action=accounts&user_id=1`.
+
+Modelo de `config.local.php`:
+
+```php
+<?php
+define('DB_HOST', 'mysql-CONTA.alwaysdata.net');
+define('DB_PORT', '3306');
+define('DB_NAME', 'CONTA_financeapp');
+define('DB_USER', 'CONTA');
+define('DB_PASS', 'SUA_SENHA');
+```
+
+### Desenvolvimento local (WAMP/XAMPP)
+
 Você pode utilizar **WAMP** ou **XAMPP**:
 
 ### Opção A: WAMP Server
@@ -259,12 +282,16 @@ Você deve ver o emulador listado como `emulator-5554` (ou similar) com o status
 
 ## 🔧 Configuração da API no App Android
 
-Abra o arquivo [`app/src/main/java/com/example/financeapp/data/Api.kt`](app/src/main/java/com/example/financeapp/data/Api.kt) e ajuste a constante `BASE_URL` conforme seu ambiente:
+A constante `DEFAULT_BASE_URL` em [`app/src/main/java/com/example/financeapp/data/Api.kt`](app/src/main/java/com/example/financeapp/data/Api.kt) já aponta para a produção (`https://financeapp.alwaysdata.net/`). Também pode ser trocada no app em **Ajustes > Servidor da API**.
 
 <table>
   <tr>
     <td><b>Ambiente</b></td>
-    <td><b>BASE_URL</b></td>
+    <td><b>DEFAULT_BASE_URL</b></td>
+  </tr>
+  <tr>
+    <td>Produção (alwaysdata)</td>
+    <td><code>https://financeapp.alwaysdata.net/</code></td>
   </tr>
   <tr>
     <td>Emulador (WAMP)</td>
@@ -361,6 +388,7 @@ FinanceApp/
 │           └── Preferences.kt   # DataStore
 ├── backend/
 │   ├── api/                     # Endpoints PHP (api.php, config.php)
+│   │   └── config.local.php     # Credenciais reais (ignorado pelo git)
 │   └── database/                # Script SQL (financeapp.sql)
 ├── docs/                        # Documentação e assets
 ├── build.gradle.kts             # Configurações globais de build
@@ -381,6 +409,7 @@ Instale diretamente no seu dispositivo Android (aplicativos de fontes desconheci
 
 | Versão | Arquivo | Descrição |
 |---|---|---|
+| **v2.1** | [`apks/FinanceApp-v2.1.apk`](apks/FinanceApp-v2.1.apk) | Backend em nuvem (alwaysdata) — baixe e use direto |
 | **v2.0** | [`apks/FinanceApp-v2.0.apk`](apks/FinanceApp-v2.0.apk) | Interface redesenhada (novo tema, cards centralizados, toggle de senha) |
 | **v1.0** | [`apks/FinanceApp-v1.0.apk`](apks/FinanceApp-v1.0.apk) | Versão original do projeto |
 
